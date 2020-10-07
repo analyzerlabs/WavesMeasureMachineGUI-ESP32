@@ -17,6 +17,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         int xCord = h/3+ 2*h/6- sep/2;
         int i[210];
         int Amplitude = 0;
+        int Periodo =0;
         int Longitud = 0;
         int frecuencia = 0;
         
@@ -73,13 +74,24 @@ class VGA_GUI:public VGA3BitI,public Mode{
             this->Amplitude = m;
        }
 
+        void calcPeriodo(){
+            int m = this->i[0];
+            for(int p=1 ; p<210;p++){
+                if(m<this->i[p])m=this->i[p];
+            }
+            this->Periodo = m;
+        }
        void printVariables(){
             fillRect(this->sep , this->h/4-this->sep/2 , this->w*3/4 - 2*this->sep,this->sep/2+ this->sep, RGB(0, 255, 0));         
             setTextColor(RGB(0,0,0));
             setCursor(this->sep,this->sep+30);
-            println("Amplitude"); 
+            println("Amplitude");
+            setCursor(this->sep+50,this->sep+30);
+            println("Periodo");
             setTextColor(RGB(0,0,0));
             setCursor(this->sep+30,this->sep+47);
-            println(this->Amplitude);      
+            println(this->Amplitude);    
+            setCursor(this->sep+80,this->sep+47);
+            println(this->Periodo);     
        }
 };
