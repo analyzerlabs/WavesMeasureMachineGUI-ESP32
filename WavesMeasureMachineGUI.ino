@@ -78,6 +78,7 @@ void loop(){
   
    if(millis()-refreshTime2 >200){
       Interfaz.calcAmplitude();
+      Interfaz.calcPeriodo();
       Interfaz.printVariables();
       Interfaz.box();
       refreshTime2=millis();      

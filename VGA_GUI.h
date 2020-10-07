@@ -20,6 +20,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         int Periodo =0;
         int Longitud = 0;
         int frecuencia = 0;
+        int dt = 1 ; //tiempo de ectura entre punto y punto en milisengundos 
         
     public:
         VGA_GUI(int a){
@@ -32,9 +33,11 @@ class VGA_GUI:public VGA3BitI,public Mode{
                 this->i[j]=0;
             }
         }
+
         Mode getMode(){
             return (this->MODE320x240);
         }
+
         void planoCartesiano(){
             fillRect(this->sep , this->h/4+this->sep , this->w*3/4 - 2*this->sep, this->h*3/4 - 2*this->sep, RGB(0, 255, 255));        
         }
@@ -43,19 +46,22 @@ class VGA_GUI:public VGA3BitI,public Mode{
             for(int k=0;k<3;k++){
                 fillRect(this->sep+ this->w*3/4 - this->sep , this->h/4+ this->sep + k*this->h/4 - this->sep/2 , (this->w)/4 + 30,  this->h/4 - this->sep/2, RGB(255, 255, 0));  
             }
-          }
+        }
+
         void principal(const char *Titulo,int R,int G,int B){
             fillRect(0 , 0 , w, h, RGB(R, G, B));
             setTextColor(RGB(255,255,255));
             setCursor(this->sep,this->sep);
             println(Titulo);
         }
+
         void fondo(const char *Titulo){
             fillRect(0 , 0 , this->w, this->h, RGB(0, 255, 0));
             setTextColor(RGB(255,255,255));
             setCursor(this->sep,this->sep);
             println(Titulo);                 
         }
+
         void plotRealTime(int newData){
             this->i[209]=newData;
             short c=0;
@@ -66,13 +72,25 @@ class VGA_GUI:public VGA3BitI,public Mode{
             }          
         }
 
-       void calcAmplitude(){
+        void calcAmplitude(){
             int m = this->i[0];
-            for(int p=1 ; p<210;p++){
-                if(m<this->i[p])m=this->i[p];
+            int x1=0,x2 = 0;
+            for(int p=1 ; p<210;p++){ //lee todo los datos , guarda el valor maximo de la ultima cresta
+                if(m<this->i[p]){
+                    m=this->i[p];
+                    x1=p;
+                }
             }
             this->Amplitude = m;
-       }
+            for(int p=1 ; p < x1- 20 ;p++){  //asegura leer la primera cresta, y parte inferior de la segunda
+                if( this->i[p] >m && m < this->amplitude){
+                    m=this->i[p];
+                    x2=p;
+                }
+            }
+            this->Longitud = abs(x1-x2);
+            this->Periodo = (x1-x2)*this->dt;
+        }
 
         void calcPeriodo(){
             int m = this->i[0];
@@ -81,7 +99,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
             }
             this->Periodo = m;
         }
-       void printVariables(){
+        void printVariables(){
             fillRect(this->sep , this->h/4-this->sep/2 , this->w*3/4 - 2*this->sep,this->sep/2+ this->sep, RGB(0, 255, 0));         
             setTextColor(RGB(0,0,0));
             setCursor(this->sep,this->sep+30);
@@ -93,5 +111,5 @@ class VGA_GUI:public VGA3BitI,public Mode{
             println(this->Amplitude);    
             setCursor(this->sep+80,this->sep+47);
             println(this->Periodo);     
-       }
+        }
 };
