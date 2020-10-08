@@ -68,10 +68,10 @@ const long interval = 6000;
  
 void FirmwareUpdate()
 {
-  http.begin(URL_fw_Version,"CC AA 48 48 66 46 0E 91 53 2C 9C 7C 23 2A B1 74 4D 29 9D 33");     // check version URL
-  delay(100);
+  http.begin(URL_fw_Version,"3C 21 AF 58 7F 42 FE C1 37 7B 3E 41 3D C0 F4 7F F1 E7 91 A6");     // check version URL
+  delay(200);
   int httpCode = http.GET();            // get data from version file
-  delay(100);
+  delay(200);
   String payload;
   if (httpCode == HTTP_CODE_OK)         // if version received
   {
