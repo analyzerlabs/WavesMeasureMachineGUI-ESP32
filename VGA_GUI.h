@@ -65,7 +65,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         void plotRealTime(int newData){
             this->i[209]=newData;
             short c=0;
-            while(c<210){
+            while(c<209){
                 fillEllipse(c+this->sep+2,xCord+this->i[c],1,1,RGB(255,0,255));          
                 this->i[c] = this->i[c+1];
                 c++;
@@ -75,7 +75,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         void calcAmplitude(){
             int m = this->i[0];
             int x1=0,x2 = 0;
-            for(int p=1 ; p<210;p++){ //lee todo los datos , guarda el valor maximo de la ultima cresta
+            for(int p=1 ; p<209;p++){ //lee todo los datos , guarda el valor maximo de la ultima cresta
                 if(m<this->i[p]){
                     m=this->i[p];
                     x1=p;
