@@ -1,10 +1,23 @@
+////////////// FOR AUTOUPDATE
 #include <Arduino.h>
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ESP32httpUpdate.h>
+#include "update.h"
+///////////////// FOR THE MACHINE
 #include <ESP32Encoder.h>
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
 #include "VGA_GUI.h"
-
+/////////////////////
+const String FirmwareVer={"1.1"}; 
+#define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/version.txt"
+#define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/firmware.bin"
+HTTPClient http;
+const char* ssid = "MIGUEL";
+const char* password = "20120415H";
+/////////////////////
 ESP32Encoder encoder;
 //pin configuration
 const int redPin = 12;
@@ -78,7 +91,6 @@ void loop(){
   
    if(millis()-refreshTime2 >200){
       Interfaz.calcAmplitude();
-      Interfaz.calcPeriodo();
       Interfaz.printVariables();
       Interfaz.box();
       refreshTime2=millis();      

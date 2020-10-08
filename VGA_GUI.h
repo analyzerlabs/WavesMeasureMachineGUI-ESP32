@@ -83,7 +83,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
             }
             this->Amplitude = m;
             for(int p=1 ; p < x1- 20 ;p++){  //asegura leer la primera cresta, y parte inferior de la segunda
-                if( this->i[p] >m && m < this->amplitude){
+                if( this->i[p] >m && m < this->Amplitude){
                     m=this->i[p];
                     x2=p;
                 }
