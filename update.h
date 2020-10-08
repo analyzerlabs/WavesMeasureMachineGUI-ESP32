@@ -1,3 +1,15 @@
+unsigned long previousMillis = 0;        // will store last time LED was updated
+const long interval = 30000;
+void repeatedCall(){
+    unsigned long currentMillis = millis();
+    if ((currentMillis - previousMillis) >= interval) 
+    {
+      // save the last time you blinked the LED
+      previousMillis = currentMillis;
+      FirmwareUpdate();
+    }
+ }
+ 
 void FirmwareUpdate()
 {
   http.begin(URL_fw_Version,"CC AA 48 48 66 46 0E 91 53 2C 9C 7C 23 2A B1 74 4D 29 9D 33");     // check version URL

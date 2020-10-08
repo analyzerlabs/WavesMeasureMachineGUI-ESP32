@@ -36,6 +36,14 @@ VGA_GUI Interfaz(1);
 void setup(){
   Serial.begin(115200);
 	//initializing the graphics mode
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.println("Waiting for wifi conecction");
+  }                                   
+  Serial.println("Connected to WiFi");
 	Serial.print("free memory: ");
 	Serial.print((int)heap_caps_get_free_size(MALLOC_CAP_DEFAULT));
   pinMode(Button,INPUT_PULLUP);
@@ -57,6 +65,7 @@ int j=0;
 int k=0;
 float multiplier = 2*PI/210;
 void loop(){
+  repeatedCall();
   //Serial.print("Color "+ C[C_selector]+"\t: ");
   //Serial.print(String((int32_t)encoder.getCount()));
   //Serial.println("\t\t Button: " + String(digitalRead(Button)));
