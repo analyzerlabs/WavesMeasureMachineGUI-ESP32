@@ -10,7 +10,7 @@
 #include "SPI.h"
 #include "VGA_GUI.h"
 /////////////////////
-const String FirmwareVer= {"1.0.8"} ; 
+const String FirmwareVer= {"1.0.9"} ; 
 #define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/version.txt"
 #define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/firmware.bin"
 HTTPClient http;
@@ -25,8 +25,6 @@ const int bluePin = 27;
 const int hsyncPin = 33;
 const int vsyncPin = 32;
 int Button = 4;
-int Color[3]={0,0,0};
-String C[3] ={"Red","Green","Blue"}; 
 int C_selector=0;
 int refreshTime=0;
 int refreshTime2=0;
@@ -155,9 +153,6 @@ void loop(){
         Serial.println("EWncodfer "+ String((int32_t)encoder.getCount())+"\t: ");
         
         }
-      C_selector ++;
-      encoder.setCount(Color[C_selector]);
-      if(C_selector ==3)C_selector=0;
   }
   if(millis()-refreshTime >5){
       Interfaz.planoCartesiano();
