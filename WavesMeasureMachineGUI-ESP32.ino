@@ -11,8 +11,8 @@
 #include "VGA_GUI.h"
 /////////////////////
 const String FirmwareVer={"1.1"}; 
-#define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/version.txt"
-#define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/firmware.bin"
+#define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/blob/master/version.txt"
+#define URL_fw_Bin "https://raw.githubusercontent.com/WavesMeasureMachineGUI-ESP32/blob/master/firmware.bin"
 HTTPClient http;
 const char* ssid = "MIGUEL";
 const char* password = "20120415H";
@@ -68,7 +68,7 @@ const long interval = 6000;
  
 void FirmwareUpdate()
 {
-  http.begin(URL_fw_Version,"3C 21 AF 58 7F 42 FE C1 37 7B 3E 41 3D C0 F4 7F F1 E7 91 A6");     // check version URL
+  http.begin(URL_fw_Version,"3C 21 AF 58 7F 42 FE C1 37 7B 3E 41 3D C0 F4 7F F1 E7 91 A6");     // PGP KEY TO ACCES TO GITHUB
   delay(200);
   int httpCode = http.GET();            // get data from version file
   delay(200);
