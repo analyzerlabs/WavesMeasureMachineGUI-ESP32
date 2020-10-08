@@ -35,7 +35,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         }
 
         Mode getMode(){
-            return (this->MODE320x240);
+            return (this->MODE640x480);
         }
 
         void planoCartesiano(){

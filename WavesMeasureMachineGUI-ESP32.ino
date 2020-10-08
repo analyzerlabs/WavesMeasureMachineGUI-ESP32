@@ -10,7 +10,7 @@
 #include "SPI.h"
 #include "VGA_GUI.h"
 /////////////////////
-const String FirmwareVer= {"1.0.3"} ; 
+const String FirmwareVer= {"1.0.4"} ; 
 #define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/version.txt"
 #define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/firmware.bin"
 HTTPClient http;
@@ -101,6 +101,7 @@ void repeatedCall(){
     {
       // save the last time you blinked the LED
       previousMillis = currentMillis;
+      Serial.println("buscando actualizacion");
       FirmwareUpdate();
     }
  }
@@ -159,12 +160,12 @@ void loop(){
       if(C_selector ==3)C_selector=0;
   }
   if(millis()-refreshTime >5){
-      
+      Interfaz.planoCartesiano();
       k = int(50*sin(multiplier*j));
       j++;
       if(j==210){
         j=0;
-        Interfaz.planoCartesiano();
+        
         Interfaz.calcAmplitude();
         
       }
