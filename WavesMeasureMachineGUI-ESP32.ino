@@ -12,7 +12,7 @@
 /////////////////////
 const String FirmwareVer={"1.1"}; 
 #define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/blob/master/version.txt"
-#define URL_fw_Bin "https://raw.githubusercontent.com/WavesMeasureMachineGUI-ESP32/blob/master/firmware.bin"
+#define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/blob/master/firmware.bin"
 HTTPClient http;
 const char* ssid = "MIGUEL";
 const char* password = "20120415H";
