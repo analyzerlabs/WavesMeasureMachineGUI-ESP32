@@ -10,7 +10,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         const int bluePin = 27;
         const int hsyncPin = 33;
         const int vsyncPin = 32;
-        Mode myMode = MODE320x240;
+        Mode myMode = MODE640x480;
         int w=320;
         int h=240;
         int sep = 10;
@@ -110,6 +110,6 @@ class VGA_GUI:public VGA3BitI,public Mode{
             setCursor(this->sep+30,this->sep+47);
             println(this->Amplitude);    
             setCursor(this->sep+80,this->sep+47);
-            println(this->Periodo);     
+            println(this->Longitud);     
         }
 };

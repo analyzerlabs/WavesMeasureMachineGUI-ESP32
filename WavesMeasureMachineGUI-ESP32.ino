@@ -10,7 +10,7 @@
 #include "SPI.h"
 #include "VGA_GUI.h"
 /////////////////////
-const String FirmwareVer= {"1.0.2"} ; 
+const String FirmwareVer= {"1.0.3"} ; 
 #define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/version.txt"
 #define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/firmware.bin"
 HTTPClient http;
@@ -32,38 +32,9 @@ int refreshTime=0;
 int refreshTime2=0;
 VGA_GUI Interfaz(1);
 
-void setup(){
-  Serial.begin(115200);
-	//initializing the graphics mode
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    delay(500);
-    Serial.println("Waiting for wifi conecction");
-  }                                   
-  Serial.println("Connected to WiFi");
-	Serial.print("free memory: ");
-	Serial.print((int)heap_caps_get_free_size(MALLOC_CAP_DEFAULT));
-  pinMode(Button,INPUT_PULLUP);
-  
-	ESP32Encoder::useInternalWeakPullResistors=UP;
-  encoder.attachHalfQuad(15, 2);
-  encoder.clearCount();
-  //SDsetup();
-  //sensorSetup();
-  pinMode(25,OUTPUT);
-  refreshTime=millis();
-  refreshTime2=millis();
-  Interfaz.fondo("Medidor de Olas");
-}
-
-//mainloop
-
-
-
+// ==================== //
 unsigned long previousMillis = 0;        // will store last time LED was updated
-const long interval = 6000;
+const long interval = 60000;
 
  
 void FirmwareUpdate()
@@ -106,7 +77,7 @@ void FirmwareUpdate()
     //ESPhttpUpdate.setLedPin(LED_BUILTIN, LOW);
 
 
-    t_httpUpdate_return ret = ESPhttpUpdate.update(URL_fw_Bin,"","CC AA 48 48 66 46 0E 91 53 2C 9C 7C 23 2A B1 74 4D 29 9D 33");
+    t_httpUpdate_return ret = ESPhttpUpdate.update(URL_fw_Bin,"","3C 21 AF 58 7F 42 FE C1 37 7B 3E 41 3D C0 F4 7F F1 E7 91 A6");
     
     switch (ret) {
       case HTTP_UPDATE_FAILED:
@@ -134,28 +105,53 @@ void repeatedCall(){
     }
  }
 
- int j=0;
+// ===========================//
+void setup(){
+  Serial.begin(115200);
+	//initializing the graphics mode
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.println("Waiting for wifi conecction");
+  }                                   
+  Serial.println("Connected to WiFi");
+	Serial.print("free memory: ");
+	Serial.print((int)heap_caps_get_free_size(MALLOC_CAP_DEFAULT));
+  pinMode(Button,INPUT_PULLUP);
+  
+	ESP32Encoder::useInternalWeakPullResistors=UP;
+  encoder.attachHalfQuad(15, 2);
+  encoder.clearCount();
+  //SDsetup();
+  //sensorSetup();
+  pinMode(25,OUTPUT);
+  refreshTime=millis();
+  refreshTime2=millis();
+  Interfaz.fondo("Medidor de Olas");
+  FirmwareUpdate();
+}
+
+//mainloop
+
+int j=0;
 int k=0;
 float multiplier = 2*PI/210;
 void loop(){
   repeatedCall();
-  //Serial.print("Color "+ C[C_selector]+"\t: ");
-  //Serial.print(String((int32_t)encoder.getCount()));
-  //Serial.println("\t\t Button: " + String(digitalRead(Button)));
-  Color[C_selector] = encoder.getCount()/2;
-  if(encoder.getCount() == 512 ){
+  if(encoder.getCount() == 6 ){
       encoder.setCount(0);
-      Color[C_selector]= 0;      
   }
   
   else if(encoder.getCount() == -2 ){
-      encoder.setCount(510);  
+      encoder.setCount(6);  
   }
   
   if(digitalRead(Button)==0){
       while(digitalRead(Button)==0){
         delayMicroseconds(1);
-        Serial.print("EWncodfer "+ String((int32_t)encoder.getCount())+"\t: ");
+        Serial.println("EWncodfer "+ String((int32_t)encoder.getCount())+"\t: ");
         
         }
       C_selector ++;
@@ -163,16 +159,20 @@ void loop(){
       if(C_selector ==3)C_selector=0;
   }
   if(millis()-refreshTime >5){
-      Interfaz.planoCartesiano();
+      
       k = int(50*sin(multiplier*j));
       j++;
-      if(j==210)j=0;
+      if(j==210){
+        j=0;
+        Interfaz.planoCartesiano();
+        Interfaz.calcAmplitude();
+        
+      }
       Interfaz.plotRealTime(k);
       refreshTime=millis();      
   }
   
    if(millis()-refreshTime2 >200){
-      Interfaz.calcAmplitude();
       Interfaz.printVariables();
       Interfaz.box();
       refreshTime2=millis();      
