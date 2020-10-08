@@ -31,6 +31,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
             setTextColor(RGB(0));  
             for(int j=0;j<210;j++){
                 this->i[j]=0;
+                delayMicroseconds(1);
             }
         }
 
@@ -69,7 +70,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
                 fillEllipse(c+this->sep+2,xCord+this->i[c],1,1,RGB(255,0,255));          
                 this->i[c] = this->i[c+1];
                 c++;
-                delay(1);
+                delayMicroseconds(1);
             }          
         }
 
@@ -80,6 +81,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
                 if(m<this->i[p]){
                     m=this->i[p];
                     x1=p;
+                    delayMicroseconds(1);
                 }
             }
             this->Amplitude = m;
@@ -87,6 +89,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
                 if( this->i[p] >m && m < this->Amplitude){
                     m=this->i[p];
                     x2=p;
+                    delayMicroseconds(1);
                 }
             }
             this->Longitud = abs(x1-x2);
@@ -97,6 +100,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
             int m = this->i[0];
             for(int p=1 ; p<210;p++){
                 if(m<this->i[p])m=this->i[p];
+                delayMicroseconds(1);
             }
             this->Periodo = m;
         }
