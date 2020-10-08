@@ -169,9 +169,10 @@ void loop(){
   }
   
    if(millis()-refreshTime2 >200){
+      Interfaz.fondo("Medidor de Olas");
       Interfaz.printVariables();
       Interfaz.box();
       refreshTime2=millis();      
   }
-  //Interfaz.show();
+  Interfaz.show();
 }
