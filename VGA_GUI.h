@@ -10,7 +10,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         const int bluePin = 27;
         const int hsyncPin = 33;
         const int vsyncPin = 32;
-        Mode myMode = MODE640x480;
+        Mode myMode = MODE320x240;
         int w=320;
         int h=240;
         int sep = 10;
@@ -35,7 +35,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         }
 
         Mode getMode(){
-            return (this->MODE640x480);
+            return (this->MODE320x240);
         }
 
         void planoCartesiano(){
@@ -69,6 +69,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
                 fillEllipse(c+this->sep+2,xCord+this->i[c],1,1,RGB(255,0,255));          
                 this->i[c] = this->i[c+1];
                 c++;
+                delay(1);
             }          
         }
 
