@@ -10,7 +10,7 @@
 #include "SPI.h"
 #include "VGA_GUI.h"
 /////////////////////
-const String FirmwareVer= {"1.0.9"} ; 
+const String FirmwareVer= {"1.1.0"} ; 
 #define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/version.txt"
 #define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/firmware.bin"
 HTTPClient http;
@@ -161,7 +161,7 @@ void loop(){
       if(j==210){
         j=0;
         
-        Interfaz.calcAmplitude();
+        //Interfaz.calcAmplitude();
         
       }
       Interfaz.plotRealTime(k);
