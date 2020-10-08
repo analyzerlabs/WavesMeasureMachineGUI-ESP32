@@ -27,7 +27,7 @@ int Button = 4;
 int C_selector=0;
 int refreshTime=0;
 int refreshTime2=0;
-VGA_GUI Interfaz(1);
+VGA_GUI Interfaz;
 
 // ==================== //
 unsigned long previousMillis = 0;        // will store last time LED was updated
@@ -127,6 +127,7 @@ void setup(){
   pinMode(25,OUTPUT);
   refreshTime=millis();
   refreshTime2=millis();
+  Interfaz.iniciar(1);
   Interfaz.fondo("Medidor de Olas");
   FirmwareUpdate();
 }
@@ -172,5 +173,5 @@ void loop(){
       Interfaz.box();
       refreshTime2=millis();      
   }
-  
+  //Interfaz.show();
 }

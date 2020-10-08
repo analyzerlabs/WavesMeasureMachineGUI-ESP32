@@ -10,7 +10,7 @@ class VGA_GUI:public VGA3BitI,public Mode{
         const int bluePin = 27;
         const int hsyncPin = 33;
         const int vsyncPin = 32;
-        Mode myMode = MODE320x240;
+        Mode myMode = MODE640x480.custom(320, 240);
         int w=320;
         int h=240;
         int sep = 10;
@@ -23,7 +23,9 @@ class VGA_GUI:public VGA3BitI,public Mode{
         int dt = 1 ; //tiempo de ectura entre punto y punto en milisengundos 
         
     public:
-        VGA_GUI(int a){
+        VGA_GUI(){}
+        void iniciar(int a){
+            setFrameBufferCount(2);
             init(getMode(),this->redPin, this->greenPin, this->bluePin, this->hsyncPin, this->vsyncPin);
             setFont(CodePage437_9x16);
             clear(RGB(0xffffff));
@@ -31,7 +33,6 @@ class VGA_GUI:public VGA3BitI,public Mode{
             setTextColor(RGB(0));  
             for(int j=0;j<210;j++){
                 this->i[j]=0;
-                delayMicroseconds(1);
             }
         }
 
@@ -70,7 +71,6 @@ class VGA_GUI:public VGA3BitI,public Mode{
                 fillEllipse(c+this->sep+2,xCord+this->i[c],1,1,RGB(255,0,255));          
                 this->i[c] = this->i[c+1];
                 c++;
-                delayMicroseconds(1);
             }          
         }
 
@@ -81,7 +81,6 @@ class VGA_GUI:public VGA3BitI,public Mode{
                 if(m<this->i[p]){
                     m=this->i[p];
                     x1=p;
-                    delayMicroseconds(1);
                 }
             }
             this->Amplitude = m;
@@ -100,7 +99,6 @@ class VGA_GUI:public VGA3BitI,public Mode{
             int m = this->i[0];
             for(int p=1 ; p<210;p++){
                 if(m<this->i[p])m=this->i[p];
-                delayMicroseconds(1);
             }
             this->Periodo = m;
         }
