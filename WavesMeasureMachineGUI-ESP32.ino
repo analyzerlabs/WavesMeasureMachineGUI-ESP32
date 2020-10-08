@@ -63,7 +63,7 @@ void setup(){
 
 
 unsigned long previousMillis = 0;        // will store last time LED was updated
-const long interval = 600000;
+const long interval = 6000;
 
  
 void FirmwareUpdate()
