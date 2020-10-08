@@ -161,18 +161,19 @@ void loop(){
       if(j==210){
         j=0;
         
-        //Interfaz.calcAmplitude();
+        Interfaz.calcAmplitude();
         
       }
       Interfaz.plotRealTime(k);
       refreshTime=millis();      
   }
   
-   if(millis()-refreshTime2 >200){
-      Interfaz.fondo("Medidor de Olas");
+   if(millis()-refreshTime2 >1000){
+      
       Interfaz.printVariables();
+      Interfaz.show();
       Interfaz.box();
       refreshTime2=millis();      
   }
-  Interfaz.show();
+      Interfaz.show();
 }
