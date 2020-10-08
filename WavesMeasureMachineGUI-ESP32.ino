@@ -1,5 +1,4 @@
 ////////////// FOR AUTOUPDATE
-#include <Arduino.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ESP32httpUpdate.h>
@@ -10,7 +9,7 @@
 #include "SPI.h"
 #include "VGA_GUI.h"
 /////////////////////
-const String FirmwareVer= {"1.1.0"} ; 
+const String FirmwareVer= {"1.1.1"} ; 
 #define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/version.txt"
 #define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/firmware.bin"
 HTTPClient http;
