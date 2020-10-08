@@ -1,4 +1,4 @@
-
+#include <Arduino.h>
 #include <ESP32Encoder.h>
 #include "FS.h"
 #include "SD.h"
