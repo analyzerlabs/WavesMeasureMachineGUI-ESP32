@@ -10,7 +10,7 @@
 #include "SPI.h"
 #include "VGA_GUI.h"
 /////////////////////
-const String FirmwareVer={"1.0.2"}; 
+const String FirmwareVer= "1.0.2" ; 
 #define URL_fw_Version "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/version.txt"
 #define URL_fw_Bin "https://raw.githubusercontent.com/analyzerlabs/WavesMeasureMachineGUI-ESP32/master/firmware.bin"
 HTTPClient http;
@@ -76,7 +76,7 @@ void FirmwareUpdate()
   if (httpCode == HTTP_CODE_OK)         // if version received
   {
     payload = http.getString();  // save received version
-    Serial.println(payload );
+    Serial.println(payload);
   }
   else
   {
@@ -88,7 +88,7 @@ void FirmwareUpdate()
   http.end();
   if (httpCode == HTTP_CODE_OK)         // if version received
   {
-  if(payload.equals(FirmwareVer) )
+  if(payload.equals(FirmwareVer))
   {   
      Serial.println("Device already on latest firmware version"); 
   }
